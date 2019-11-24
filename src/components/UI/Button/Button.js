@@ -2,7 +2,7 @@ import React from 'react';
 import cssCls from './Button.css';
 
 const Button = props => {
-    const cssClasses = [
+    const clsByButton = [
         cssCls.Button,
         cssCls[props.type]
     ];
@@ -10,7 +10,7 @@ const Button = props => {
     return(
         <button
             onClick={props.onClick}
-            className={cssClasses.join(' ')}
+            className={clsByButton.join(' ')}
             disabled={props.disabled}
         >
             {props.children}
