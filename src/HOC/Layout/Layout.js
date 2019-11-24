@@ -15,6 +15,12 @@ class Layout extends Component {
         });
     };
 
+    closingMenuThenClickBackdropHandler = () => {
+        this.setState({
+            menu: false
+        });
+    };
+
     render() {
         const children = this.props.children;
         return(
@@ -22,6 +28,7 @@ class Layout extends Component {
 
                 <Drawer
                     isOpen={this.state.menu}
+                    onClose={this.closingMenuThenClickBackdropHandler}
                 />
                 <MenuToggle
                     onToggle={this.toggleMenuHandler}

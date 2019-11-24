@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import cssCls from './Drawer.css';
+import BackDrop from '../../UI/BackDrop/BackDrop';
 
 const links = [1,2,3];
 
@@ -16,17 +17,21 @@ class Drawer extends Component {
     }
 
     render() {
+        const menuIsOpen = this.props.isOpen;
         const clsByNav = [cssCls.Drawer];
-        if (!this.props.isOpen) {
+        if (!menuIsOpen) {
             clsByNav.push(cssCls.close);
         }
 
         return (
-            <nav className={clsByNav.join(' ')}>
-                <ul>
-                    {this.renderLinks()}
-                </ul>
-            </nav>
+            <>
+                <nav className={clsByNav.join(' ')}>
+                    <ul>
+                        {this.renderLinks()}
+                    </ul>
+                </nav>
+                { menuIsOpen ? <BackDrop onClick={this.props.onClose}/> : null }
+            </>
         );
     }
 }
