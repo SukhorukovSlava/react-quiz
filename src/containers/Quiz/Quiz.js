@@ -100,6 +100,11 @@ class Quiz extends Component {
         });
     };
 
+    componentDidMount() {
+        console.log('Quiz id =', this.props.match.params.id );
+    }
+
+
     render() {
         let activeQuestion = this.state.activeQuestion;
         const answers = this.state.quiz[activeQuestion].answers;
