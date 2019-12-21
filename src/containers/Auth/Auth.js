@@ -3,6 +3,8 @@ import cssCls from './Auth.css';
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import is from 'is_js';
+import axios from 'axios';
+import appConfig from "../../appConfig";
 
 const Auth = () => {
     const initState = {
@@ -94,12 +96,40 @@ const Auth = () => {
         });
     };
 
-    const loginHandler = () => {
+    const loginHandler = async () => {
+        const signInData = {
+            email: state.formControls.email.value,
+            password: state.formControls.password.value,
+            returnSecureToken: true
+        };
 
+        try {
+            const response = await axios.post(
+                appConfig.firebaseSignInURL + appConfig.API_KEY,
+                signInData
+            );
+            console.log(response.data);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
-    const registerHandler = () => {
+    const registerHandler = async () => {
+        const signUpData = {
+            email: state.formControls.email.value,
+            password: state.formControls.password.value,
+            returnSecureToken: true
+        };
 
+        try {
+            const response = await axios.post(
+                appConfig.firebaseSignUpURL + appConfig.API_KEY,
+                signUpData
+            );
+            console.log(response.data);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     return (

@@ -4,6 +4,7 @@ import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import Select from "../../components/UI/Select/Select";
 import {createControl, validatingControl, validatingForm} from "../../form/ServiceForm";
+import axios from 'axios';
 
 function createOptionsControl(num) {
     return createControl({
@@ -101,9 +102,15 @@ const QuizCreator = props => {
         })
     };
 
-    const createQuizHandler = event => {
+    const createQuizHandler = async event => {
         event.preventDefault();
-        console.log(state.quiz);
+        const firebaseUrl = 'https://react-quiz-56e59.firebaseio.com/quiz.json';
+        try {
+            await axios.post(firebaseUrl, state.quiz);
+            setState(initState);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     const selectOnChangeHandler = event => {
