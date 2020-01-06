@@ -9,7 +9,7 @@ const ActiveQuiz = props => (
                 <strong>{ props.curNumQuestion }.</strong>&nbsp;
                 {props.question}
             </span>
-            <small>{ props.curNumQuestion } из { props.totalCountQuiz }</small>
+            <small>{ props.curNumQuestion } of { props.totalCountQuiz }</small>
         </p>
 
         <AnswersList

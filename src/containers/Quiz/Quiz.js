@@ -100,7 +100,7 @@ class Quiz extends React.Component {
         return(
             <div className={cssCls.Quiz}>
                 <div className={cssCls.QuizWrapper}>
-                    <h1>Ответьте на все вопросы</h1>
+                    <h1>Answer all questions</h1>
                     {
                         (loading)
                             ? <Loader/>

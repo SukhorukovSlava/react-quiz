@@ -14,7 +14,7 @@ const Auth = () => {
                 value: '',
                 type: 'email',
                 label: 'Email',
-                errorMessage: 'Введите корректный email',
+                errorMessage: 'Enter the correct email',
                 valid: false,
                 touched: false,
                 validation: {
@@ -25,8 +25,8 @@ const Auth = () => {
             password: {
                 value: '',
                 type: 'password',
-                label: 'Пароль',
-                errorMessage: 'Введите корректный пароль',
+                label: 'Password',
+                errorMessage: 'Enter the correct password',
                 valid: false,
                 touched: false,
                 validation: {
@@ -135,7 +135,7 @@ const Auth = () => {
     return (
         <div className={cssCls.Auth}>
             <div>
-                <h1>Авторизация</h1>
+                <h1>Authorization</h1>
                 <form
                     className={cssCls.AuthForm}
                     onSubmit={event => event.preventDefault()}
@@ -146,14 +146,14 @@ const Auth = () => {
                         onClick={loginHandler}
                         disabled={!state.isFormValid}
                     >
-                        Войти
+                        Sing in
                     </Button>
                     <Button
                         type="primary"
                         onClick={registerHandler}
                         disabled={!state.isFormValid}
                     >
-                        Зарегистрироваться
+                        Sing up
                     </Button>
                 </form>
             </div>

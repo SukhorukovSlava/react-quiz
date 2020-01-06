@@ -9,16 +9,16 @@ import axios from 'axios';
 function createOptionsControl(num) {
     return createControl({
         id: num,
-        label: `Вариант ${num}`,
-        errorMessage: 'Значение не может быть пустым'
+        label: `Option ${num}`,
+        errorMessage: 'option value cannot be empty'
     }, {required: true})
 }
 
 function createFormControls() {
     return {
         question: createControl({
-            label: 'Введите вопрос',
-            errorMessage: 'Вопрос не может быть пустым'
+            label: 'Enter a question',
+            errorMessage: 'question cannot be empty'
         }, {required: true}),
         option1: createOptionsControl(1),
         option2: createOptionsControl(2),
@@ -121,7 +121,7 @@ const QuizCreator = props => {
 
     const select = (
         <Select
-            label="Выбирите правильный ответ"
+            label="Choose the correct answer"
             value={state.rightAnswerId}
             onChange={selectOnChangeHandler}
             options={[
@@ -136,7 +136,7 @@ const QuizCreator = props => {
     return (
         <div className={cssCls.QuizCreator}>
             <div>
-                <h1>Создание теста</h1>
+                <h1>Creating a test</h1>
                 <form onChange={submitFormHandler}>
                     {renderInputs()}
 
@@ -147,14 +147,14 @@ const QuizCreator = props => {
                         onClick={addQuestionHandler}
                         disabled={!state.isFormValid}
                     >
-                        Добавить вопрос
+                        Add question
                     </Button>
                     <Button
                         type="success"
                         onClick={createQuizHandler}
                         disabled={state.quiz.length === 0}
                     >
-                        Создать тест
+                        Create test
                     </Button>
                 </form>
             </div>
