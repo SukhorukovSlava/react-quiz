@@ -6,10 +6,10 @@ const ActiveQuiz = props => (
     <div className={cssCls.ActiveQuiz}>
         <p className={cssCls.Question}>
             <span>
-                <strong>{ props.curNumQuestion }.</strong>&nbsp;
+                <strong>{ props.nextQuestionNum }.</strong>&nbsp;
                 {props.question}
             </span>
-            <small>{ props.curNumQuestion } of { props.totalCountQuiz }</small>
+            <small>{ props.nextQuestionNum } of { props.totalCountQuestion }</small>
         </p>
 
         <AnswersList
