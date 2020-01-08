@@ -4,7 +4,8 @@ import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
 import Select from "../../components/UI/Select/Select";
 import {createControl, validatingControl, validatingForm} from "../../form/ServiceForm";
-import axios from 'axios';
+import {connect} from "react-redux";
+import {addQuestion, createQuiz} from "../../store/actions/create";
 
 function createOptionsControl(num) {
     return createControl({
@@ -30,7 +31,6 @@ function createFormControls() {
 const QuizCreator = props => {
 
     const initState = {
-        quiz: [],
         rightAnswerId: 1,
         isFormValid: false,
         formControls: createFormControls()
@@ -79,9 +79,9 @@ const QuizCreator = props => {
     const addQuestionHandler = event => {
         event.preventDefault();
 
-        const quiz = [...state.quiz];
-        const index = quiz.length + 1;
+        const index = props.quiz.length + 1;
         const {question, option1, option2, option3, option4} = state.formControls;
+
         const questionItem = {
             id: index,
             question: question.value,
@@ -93,24 +93,21 @@ const QuizCreator = props => {
                 {text: option4.value, id: option4.id},
             ]
         };
-        quiz.push(questionItem);
+
+        props.addQuestion(questionItem);
+
         setState({
-            quiz,
             rightAnswerId: 1,
             isFormValid: false,
             formControls: createFormControls()
         })
     };
 
-    const createQuizHandler = async event => {
+    const createQuizHandler = event => {
         event.preventDefault();
-        const firebaseUrl = 'https://react-quiz-56e59.firebaseio.com/quiz.json';
-        try {
-            await axios.post(firebaseUrl, state.quiz);
-            setState(initState);
-        } catch (e) {
-            console.error(e);
-        }
+
+        setState(initState);
+        props.createQuiz();
     };
 
     const selectOnChangeHandler = event => {
@@ -152,7 +149,7 @@ const QuizCreator = props => {
                     <Button
                         type="success"
                         onClick={createQuizHandler}
-                        disabled={state.quiz.length === 0}
+                        disabled={props.quiz.length === 0}
                     >
                         Create test
                     </Button>
@@ -162,4 +159,17 @@ const QuizCreator = props => {
     );
 };
 
-export default QuizCreator;
+const mapStateToProps = state => {
+    return {
+        quiz: state.create.quiz
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addQuestion: questionItem => dispatch(addQuestion(questionItem)),
+        createQuiz: () => dispatch(createQuiz())
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizCreator);
