@@ -12,6 +12,7 @@ export class ActionType {
         ADD_QUIZ_QUESTION: 'ADD_QUIZ_QUESTION',
         SUCCESSFUL_AUTH: 'SUCCESSFUL_AUTH',
         AUTH_LOGOUT: 'AUTH_LOGOUT',
+        AUTO_LOGIN: 'AUTO_LOGIN'
     };
 
     static getAction(action) {

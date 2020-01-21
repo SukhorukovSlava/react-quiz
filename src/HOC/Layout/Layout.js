@@ -1,45 +1,50 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import cssCls from './Layout.css';
 import MenuToggle from '../../components/Navigation/MenuToggle/MenuToggle';
 import Drawer from '../../components/Navigation/Drawer/Drawer';
+import connect from "react-redux/es/connect/connect";
 
-class Layout extends Component {
+const Layout = props => {
 
-    state = {
+  const [state, setState] = useState({menu: false});
+
+  const closingMenuThenClickBackdropHandler = () => {
+    setState({
       menu: false
-    };
+    });
+  };
 
-    toggleMenuHandler = () => {
-        this.setState({
-           menu: !this.state.menu
-        });
-    };
+  const toggleMenuHandler = () => {
+    setState({
+      menu: !state.menu
+    });
+  };
 
-    closingMenuThenClickBackdropHandler = () => {
-        this.setState({
-            menu: false
-        });
-    };
+  const children = props.children;
 
-    render() {
-        const children = this.props.children;
-        return(
-            <div className={cssCls.Layout}>
+  return (
+    <div className={cssCls.Layout}>
 
-                <Drawer
-                    isOpen={this.state.menu}
-                    onClose={this.closingMenuThenClickBackdropHandler}
-                />
-                <MenuToggle
-                    onToggle={this.toggleMenuHandler}
-                    isOpen={this.state.menu}
-                />
-                <main>
-                    {children}
-                </main>
-            </div>
-        );
-    }
-}
+      <Drawer
+        isOpen={state.menu}
+        isAuthenticated={props.isAuthenticated}
+        onClose={closingMenuThenClickBackdropHandler}
+      />
+      <MenuToggle
+        onToggle={toggleMenuHandler}
+        isOpen={state.menu}
+      />
+      <main>
+        {children}
+      </main>
+    </div>
+  );
+};
 
-export default Layout;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: !!state.auth.token
+  }
+};
+
+export default connect(mapStateToProps)(Layout);

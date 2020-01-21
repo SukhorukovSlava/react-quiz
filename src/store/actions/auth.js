@@ -2,8 +2,9 @@ import appConfig from "../../appConfig";
 import axios from 'axios';
 import {ActionType} from "./ActionType";
 import {
-  removeItemsToLocalStorage,
-  setItemsToLocalStorage
+  removeItemsToLS,
+  setItemsToLS,
+  getItemFromLS
 } from "../../utils/utilsForWorkLocalstorage";
 
 export const signIn = (email, password) => async dispatch => {
@@ -25,7 +26,7 @@ export const signIn = (email, password) => async dispatch => {
     const expiresIn = data.expiresIn * 1000;
     const timeStampNow = new Date().getTime();
 
-    setItemsToLocalStorage({
+    setItemsToLS({
       token,
       userId,
       expirationDate: timeStampNow + expiresIn
@@ -60,7 +61,7 @@ export const signUp = (email, password) => async dispatch => {
     const expiresIn = data.expiresIn * 1000;
     const timeStampNow = new Date().getTime();
 
-    setItemsToLocalStorage({
+    setItemsToLS({
       token,
       userId,
       expirationDate: timeStampNow + expiresIn
@@ -89,9 +90,31 @@ const autoLogoutAfterTime = time => dispatch => {
 };
 
 export const logout = () => {
-  removeItemsToLocalStorage(['token', 'userId', 'expirationDate']);
+  removeItemsToLS(['token', 'userId', 'expirationDate']);
 
   return {
     type: ActionType.typeList.AUTH_LOGOUT
+  }
+};
+
+export const autoLogin = () => async dispatch => {
+  const token = getItemFromLS('token');
+
+  if (!token) {
+    dispatch(logout());
+    return;
+  }
+
+  const expirationDateToken = getItemFromLS('expirationDate');
+  const curTimestamp = new Date().getTime();
+
+  if (expirationDateToken <= curTimestamp) {
+    dispatch(logout());
+  } else {
+    dispatch(successfulAuth(token));
+
+    const timeLeftToken = expirationDateToken - curTimestamp; // ms
+
+    dispatch(autoLogoutAfterTime(timeLeftToken));
   }
 };
