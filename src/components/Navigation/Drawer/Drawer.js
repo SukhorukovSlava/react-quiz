@@ -7,6 +7,7 @@ const links = [
     {to: '/', label: 'List', exact: true},
     {to: '/auth', label: 'Authorization', exact: false},
     {to: '/quiz-creator', label: 'Create a test', exact: false},
+    {to: '/quiz-editor', label: 'Edit tests', exact: false},
 ];
 
 const Drawer = props => {

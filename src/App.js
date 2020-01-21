@@ -5,6 +5,7 @@ import Quiz from './containers/Quiz/Quiz';
 import Auth from "./containers/Auth/Auth";
 import QuizCreator from "./containers/QuizCreator/QuizCreator";
 import QuizList from "./containers/QuizList/QuizList";
+import QuizEditor from "./containers/QuizEditor/QuizEditor";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Switch>
             <Route path="/auth" component={Auth} />
             <Route path="/quiz-creator" component={QuizCreator} />
-            {/*<Route path="/quiz/:id/edit" component={QuizEditor}/>*/}
+            {<Route path="/quiz-editor/" component={QuizEditor}/>}
             <Route path="/quiz/:id" component={Quiz} />
             <Route path="/" component={QuizList} />
         </Switch>

@@ -7,9 +7,11 @@ import {fetchQuizes} from "../../store/actions/quiz";
 
 const QuizList = props => {
 
+    const {fetcherQuizes} = props;
+
     useEffect(() => {
-        props.fetchQuizes();
-    }, []);
+        fetcherQuizes();
+    }, [fetcherQuizes]);
 
     return(
         <div className={cssCls.quizList}>
@@ -48,7 +50,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchQuizes: () => dispatch(fetchQuizes())
+        fetcherQuizes: () => dispatch(fetchQuizes())
     };
 };
 

@@ -10,7 +10,8 @@ export class ActionType {
         VALID_ANSWER_PASSED: 'VALID_ANSWER_PASSED',
         RETRY_QUIZ: 'RETRY_QUIZ',
         ADD_QUIZ_QUESTION: 'ADD_QUIZ_QUESTION',
-        RESET_STATE_QUIZ: 'RESET_STATE_QUIZ'
+        SUCCESSFUL_AUTH: 'SUCCESSFUL_AUTH',
+        AUTH_LOGOUT: 'AUTH_LOGOUT',
     };
 
     static getAction(action) {
