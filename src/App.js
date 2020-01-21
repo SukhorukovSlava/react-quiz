@@ -18,22 +18,22 @@ const App = props => {
     automaticLogin();
   }, [automaticLogin]);
 
-  const authRouts = (
+  const authRoutes = (
     <Switch>
       <Route path="/quiz-creator" component={QuizCreator} />
       <Route path="/quiz-editor" component={QuizEditor}/>
       <Route path="/quiz/:id" component={Quiz} />
       <Route path="/logout" component={Logout}/>
-      <Route path="/" exect component={QuizList} />
+      <Route path="/" component={QuizList} exact />
       <Redirect to={'/'} />
     </Switch>
   );
 
-  const notAuthRouts = (
+  const notAuthRoutes = (
     <Switch>
       <Route path="/auth" component={Auth} />
       <Route path="/quiz/:id" component={Quiz} />
-      <Route path="/" exect component={QuizList} />
+      <Route path="/" component={QuizList} exact />
       <Redirect to={'/'} />
     </Switch>
   );
@@ -42,8 +42,8 @@ const App = props => {
     <Layout>
       {
         props.isAuthenticated
-          ? authRouts
-          : notAuthRouts
+          ? authRoutes
+          : notAuthRoutes
       }
     </Layout>
   );
